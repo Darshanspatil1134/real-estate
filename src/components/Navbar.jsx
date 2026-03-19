@@ -105,7 +105,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute top-0 right-0 w-[300px] h-screen bg-white shadow-2xl p-10 flex flex-col z-[1001]"
+              className="fixed top-0 right-0 w-[300px] h-screen bg-white shadow-2xl p-10 flex flex-col z-[1001] pointer-events-auto"
             >
               <div className="flex justify-between items-center mb-12">
                  <Building2 className="text-accent" size={28} />
