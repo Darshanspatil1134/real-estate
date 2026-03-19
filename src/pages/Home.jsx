@@ -7,19 +7,21 @@ import { allProperties } from '../data/properties';
 
 // Assets
 import video1 from '../assets/WhatsApp Video 2026-03-15 at 8.21.36 AM.mp4';
+import video2 from '../assets/WhatsApp Video 2026-03-15 at 8.23.29 AM.mp4';
 import property2 from '../assets/property2.png';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('buy');
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
   const navigate = useNavigate();
 
   const featuredProperties = allProperties.filter(p => p.city === 'Nashik').slice(0, 3);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate(`/search?location=${searchQuery}&type=${activeTab}`);
+    navigate(`/search?location=${searchQuery}&type=${activeTab}${activeCategory !== 'All' ? `&category=${activeCategory}` : ''}`);
   };
 
   return (
@@ -91,14 +93,23 @@ const Home = () => {
                       />
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-accent/30 transition-all cursor-pointer group">
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-accent/30 transition-all group relative">
                       <label className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em] mb-2 block">Property Type</label>
-                      <span className="font-bold text-sm flex items-center justify-between text-white">Any Type <ChevronRight size={14} className="rotate-90 text-accent" /></span>
-                    </div>
-                    <div className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-accent/30 transition-all cursor-pointer group">
-                      <label className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em] mb-2 block">Budget</label>
-                      <span className="font-bold text-sm flex items-center justify-between text-white">₹20L - ₹20Cr <ChevronRight size={14} className="rotate-90 text-accent" /></span>
+                      <select 
+                        className="w-full bg-transparent border-none outline-none font-bold text-sm text-white appearance-none cursor-pointer"
+                        onChange={(e) => setActiveCategory(e.target.value)}
+                        value={activeCategory}
+                      >
+                        <option value="All" className="bg-[#0f172a]">Any Type</option>
+                        <option value="Apartment" className="bg-[#0f172a]">Apartment</option>
+                        <option value="Villa" className="bg-[#0f172a]">Villa</option>
+                        <option value="Penthouse" className="bg-[#0f172a]">Penthouse</option>
+                        <option value="Commercial Space" className="bg-[#0f172a]">Commercial</option>
+                        <option value="Plot" className="bg-[#0f172a]">Plot</option>
+                        <option value="Duplex" className="bg-[#0f172a]">Duplex</option>
+                      </select>
+                      <ChevronRight size={14} className="absolute right-6 bottom-7 rotate-90 text-accent pointer-events-none" />
                     </div>
                   </div>
                   <button type="submit" className="w-full py-6 grad-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-primary hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
@@ -130,7 +141,7 @@ const Home = () => {
       <section className="py-24 max-w-screen-2xl mx-auto px-6 bg-white">
         <div className="relative h-[75vh] rounded-[4rem] overflow-hidden group border border-slate-100 shadow-2xl">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-all duration-[3000ms]">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-living-room-interior-32770-large.mp4" type="video/mp4" />
+            <source src={video2} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-10">

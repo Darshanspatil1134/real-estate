@@ -12,13 +12,14 @@ const SearchPage = () => {
   
   const initialLocation = queryParams.get('location') || '';
   const initialType = queryParams.get('type') || 'all';
+  const initialCategory = queryParams.get('category') || 'All';
 
   const [locationQuery, setLocationQuery] = useState(initialLocation);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [viewType, setViewType] = useState('grid');
   const [priceRange, setPriceRange] = useState(20); 
   const [showFilters, setShowFilters] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   const categories = ['All', 'Apartment', 'Villa', 'Penthouse', 'Commercial Space', 'Plot', 'Duplex'];
 
@@ -43,7 +44,7 @@ const SearchPage = () => {
     result = result.filter(p => p.priceValue <= priceRange * 100);
 
     setFilteredProperties(result);
-  }, [search, initialLocation, initialType, activeCategory, priceRange]);
+  }, [search, initialLocation, initialType, initialCategory, activeCategory, priceRange]);
 
   const handleSearchUpdate = (e) => {
     e.preventDefault();

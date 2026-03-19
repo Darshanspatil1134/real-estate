@@ -3,9 +3,12 @@ import { motion } from 'framer-motion';
 import { MapPin, Home, Briefcase, Video, Heart, ArrowUpRight, Ruler } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { useCart } from '../context/CartContext';
+
 const PropertyCard = ({ property, index, variant = 'grid' }) => {
   const isList = variant === 'list';
-  const [liked, setLiked] = useState(false);
+  const { isInCart, toggleCart } = useCart();
+  const liked = isInCart(property.id);
 
   return (
     <motion.div
@@ -41,7 +44,7 @@ const PropertyCard = ({ property, index, variant = 'grid' }) => {
           </div>
 
           <button 
-            onClick={(e) => { e.preventDefault(); setLiked(!liked); }}
+            onClick={(e) => { e.preventDefault(); toggleCart(property); }}
             className={`absolute top-5 right-5 w-11 h-11 glass backdrop-blur-md rounded-full flex items-center justify-center transition-all ${liked ? 'bg-red-500 text-white shadow-xl scale-110 border-none' : 'text-white hover:text-red-500 border border-white/10'}`}
           >
             <Heart size={18} fill={liked ? "currentColor" : "none"} />

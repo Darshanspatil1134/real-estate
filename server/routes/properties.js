@@ -52,4 +52,32 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Delete property
+router.delete('/:id', async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) return res.status(404).json({ message: 'Property not found' });
+    
+    await Property.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Property deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update property
+router.patch('/:id', async (req, res) => {
+  try {
+    const updatedProperty = await Property.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    if (!updatedProperty) return res.status(404).json({ message: 'Property not found' });
+    res.json(updatedProperty);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
