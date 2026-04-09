@@ -91,9 +91,9 @@ const PropertyCard = ({ property, index, variant = 'grid' }) => {
             <Link to={`/property/${property.id}`} className="flex-1 py-4 glass hover:bg-white hover:text-black rounded-2xl text-[10px] font-black tracking-widest transition-all text-center uppercase text-white/70">
               RESERVE VIEWING
             </Link>
-            <button className="w-12 h-12 grad-primary rounded-2xl flex items-center justify-center text-white shadow-primary hover:scale-105 active:scale-95 transition-all">
+            <Link to={`/property/${property.id}`} className="w-12 h-12 grad-primary rounded-2xl flex items-center justify-center text-white shadow-primary hover:scale-105 active:scale-95 transition-all">
               <ArrowUpRight size={22} />
-            </button>
+            </Link>
           </div>
         </div>
 

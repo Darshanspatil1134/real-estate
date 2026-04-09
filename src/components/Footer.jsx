@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Building2, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -22,14 +22,7 @@ const Footer = () => {
             <p className="text-white/40 font-bold text-sm leading-relaxed max-w-xs">
               Redefining luxury real estate in Maharashtra. Specializing in Nashik's most prestigious addresses with 120+ curated postings.
             </p>
-            <div className="flex gap-4">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                <button key={i} className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-white/40 hover:text-accent hover:border-accent transition-all group">
-                  <Icon size={18} />
-                </button>
-              ))}
-            </div>
-          </div>
+                      </div>
 
           {/* Quick Links */}
           <div>

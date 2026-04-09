@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Search, ChevronRight, Play, CheckCircle, Globe, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,8 @@ const Home = () => {
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef(null);
   const navigate = useNavigate();
 
   const featuredProperties = allProperties.filter(p => p.city === 'Nashik').slice(0, 3);
@@ -22,6 +24,17 @@ const Home = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search?location=${searchQuery}&type=${activeTab}${activeCategory !== 'All' ? `&category=${activeCategory}` : ''}`);
+  };
+
+  const toggleVideoPlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
   return (
@@ -140,14 +153,17 @@ const Home = () => {
       {/* Virtual Tour Experience */}
       <section className="py-24 max-w-screen-2xl mx-auto px-6 bg-white">
         <div className="relative h-[75vh] rounded-[4rem] overflow-hidden group border border-slate-100 shadow-2xl">
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-all duration-[3000ms]">
+          <video ref={videoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-all duration-[3000ms]">
             <source src={video2} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-10">
-             <div className="w-24 h-24 grad-primary rounded-full flex items-center justify-center mb-10 hover:scale-110 transition-transform cursor-pointer relative shadow-primary">
-               <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-20"></div>
-               <Play size={36} className="text-white ml-1.5" fill="currentColor" />
+             <div onClick={toggleVideoPlay} className="w-24 h-24 grad-primary rounded-full flex items-center justify-center mb-10 hover:scale-110 transition-transform cursor-pointer relative shadow-primary">
+               {isPlaying && <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-20"></div>}
+               {isPlaying ? 
+                  <span className="text-white font-black text-xs tracking-widest uppercase">Pause</span> :
+                  <Play size={36} className="text-white ml-1.5" fill="currentColor" />
+               }
              </div>
              <h2 className="text-4xl md:text-7xl font-black mb-6 max-w-4xl tracking-tight text-white">Experience Your <br /> <span className="text-accent font-heading italic font-normal text-6xl">Future Address.</span></h2>
              <p className="text-white/70 tracking-[0.4em] uppercase font-black text-[10px]">WATCH CINEMATIC PROPERTY TOURS</p>
